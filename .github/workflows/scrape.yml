@@ -5,13 +5,17 @@ on:
     - cron: "*/10 * * * *" # cada 10 minutos
   workflow_dispatch: {}
 
-# ✅ Necesario para poder hacer commit/push de state.json
 permissions:
   contents: write
+
+concurrency:
+  group: prop-scraper
+  cancel-in-progress: true
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - name: Checkout repo
@@ -36,8 +40,15 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           PYTHONUNBUFFERED: "1"
+
+          # ✅ Evitar 429 (Too Many Requests) y spam
+          MAX_SEND: "15"
+          SLEEP_BETWEEN_MSG: "1.5"
+
+          # ✅ Debug opcional (ponlo en "1" si quieres ver status codes y tamaño HTML)
+          DEBUG_HTTP: "0"
         run: |
-         python -u bot.py
+          python -u bot.py
 
       - name: Commit state.json if changed
         run: |
