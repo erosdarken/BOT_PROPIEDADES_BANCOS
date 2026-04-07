@@ -74,13 +74,11 @@ def safe_get(url: str, timeout: int = 20) -> str:
 # -------------------------
 # Extracción simple de campos desde texto
 # -------------------------
+
 def extract_size(text: str) -> str:
-    m = re.search(r"(\d{1,5}\s?(?:m2|m²|m²|m²))", text.replace(" ", ""), re.IGNORECASE)
+    m = re.search(r"(\d{1,5})\s*(m2|m²)", text, re.IGNORECASE)
     if m:
-        return m.group(1)
-    m2 = re.search(r"(\d{1,5})\s?(m2|m²)", text, re.IGNORECASE)
-    if m2:
-        return f"{m2.group(1)} m²"
+        return f"{m.group(1)} m²"
     return ""
 
 def extract_price(text: str) -> str:
