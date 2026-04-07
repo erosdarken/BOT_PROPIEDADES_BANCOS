@@ -53,8 +53,12 @@ def send_telegram(token: str, chat_id: str, text: str):
     if not token or not chat_id:
         print("Telegram token/chat_id no configurados; omitiendo envío.")
         return
-    url = f"https://api.telegram.org/bot{token}/sendMessage"
-    payload = {"chat_id": chat_id, "text": text}
+    url = f"https://api.telegram.org/bot{token}/sendMessage"   
+payload = {
+    "chat_id": chat_id,
+    "text": text,
+    "parse_mode": "Markdown"
+}
     try:
         r = requests.post(url, data=payload, timeout=15)
         r.raise_for_status()
