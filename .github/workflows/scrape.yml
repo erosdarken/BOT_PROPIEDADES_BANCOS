@@ -2,25 +2,29 @@ name: Propiedades - Scraper
 
 on:
   schedule:
-    - cron: '*/10 * * * *'  # cada 10 minutos
+    - cron: "*/10 * * * *" # cada 10 minutos
   workflow_dispatch: {}
 
+# ✅ Necesario para poder hacer commit/push de state.json
 permissions:
   contents: write
 
 jobs:
   scrape:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
         with:
           persist-credentials: true
+          fetch-depth: 0
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: "3.10"
+          cache: "pip"
 
       - name: Install dependencies
         run: |
@@ -38,6 +42,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
           if [[ -n "$(git status --porcelain)" ]]; then
             git add state.json
             git commit -m "Update state.json (new properties detected)"
