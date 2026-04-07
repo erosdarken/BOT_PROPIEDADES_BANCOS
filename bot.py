@@ -26,7 +26,7 @@ HEADERS = {"User-Agent": USER_AGENT}
 BANKS = [
     {"name": "Banco Nacional", "url": "https://ventadebienes.bncr.fi.cr/propiedades"},
     {"name": "BCR - Casas", "url": "https://ventadebienes.bancobcr.com/wps/portal/bcrb/bcrbienes/bienes/Casas?tipo_propiedad=1"},
-    {"name": "BCR - Terrenos", "url": "https://ventadebienes.bancobcr.com/wps/portal/bcrb/bcrbienes/bienes/terrenos?&tipo_propiedad=3"},
+    {"name": "BCR - Terrenos", "url": "https://ventadebienes.bancobcr.com/wps/portal/bcrb/bcrbienes/bienes/terrenos?tipo_propiedad=3"},
     {"name": "Banco Popular", "url": "https://srv.bancopopular.fi.cr/Wb_BA_SharepointU/"},
     {"name": "BAC", "url": "https://www.baccredomatic.com/es-cr/personas/viviendas-adjudicadas"},
     {"name": "Scotiabank", "url": "https://www.davibank.cr/homeshow/casas.aspx"},
